@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Fieroo\Dashboard\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -17,10 +17,10 @@ class DashboardController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -69,7 +69,7 @@ class DashboardController extends Controller
             ])->get();
         }
 
-        return view('admin.dashboard', $data);
+        return view('dashboard::dashboard', $data);
     }
 
     public function getEventsParticipantsChart(Request $request)
