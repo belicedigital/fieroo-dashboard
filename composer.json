@@ -1,0 +1,24 @@
+{
+    "name": "fieroo/dashboard",
+    "description": "Fieroo Dashboard",
+    "type": "library",
+    "license": "EULA",
+    "autoload": {
+        "psr-4": {
+            "Fieroo\\Dashboard\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Francesco Passanante",
+            "email": "francescopassanante@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fieroo\\Dashboard\\Providers\\DashboardProvider"
+            ]
+        }
+    }
+}
