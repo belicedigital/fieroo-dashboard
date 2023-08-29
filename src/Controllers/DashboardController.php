@@ -46,7 +46,7 @@ class DashboardController extends Controller
         $n_completed_exhibitors = DB::table('exhibitors_data')
             ->leftJoin('exhibitors', 'exhibitors_data.exhibitor_id', '=', 'exhibitors.id')
             ->count();
-        $data['percentage_exhibitors_completed'] = round(($n_completed_exhibitors/$n_exhibitors)*100);
+        $data['percentage_exhibitors_completed'] = $n_exhibitors !== 0 ? round(($n_completed_exhibitors/$n_exhibitors)*100) : 0;
         $data['tot_users_incompleted'] = $n_exhibitors-$n_completed_exhibitors;
 
         $stand_more_purchased = DB::table('payments')
