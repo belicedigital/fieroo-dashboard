@@ -5,7 +5,7 @@ namespace Fieroo\Dashboard\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
-use App\Models\User;
+use Fieroo\Bootstrapper\Models\User;
 use Fieroo\Events\Models\Event;
 use Carbon\Carbon;
 use Auth;
