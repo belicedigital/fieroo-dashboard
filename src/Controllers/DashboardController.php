@@ -63,6 +63,7 @@ class DashboardController extends Controller
             ->first();
         $data['stand_more_purchased'] = is_object($stand_more_purchased) ? $stand_more_purchased : null;
 
+        dd(auth());
         if(auth()->user()->roles->first()->name == 'espositore') {
             $data['events'] = Event::where([
                 ['is_published', '=', 1],
