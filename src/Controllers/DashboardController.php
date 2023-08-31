@@ -5,7 +5,6 @@ namespace Fieroo\Dashboard\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
-use Fieroo\Bootstrapper\Models\User;
 use Fieroo\Events\Models\Event;
 use Carbon\Carbon;
 use Auth;
@@ -30,12 +29,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->roles->first()->name == 'espositore') {
-            $user = User::findOrFail(auth()->user()->id);
-            if(is_null($user->exhibitor->detail)) {
-                return redirect()->route('compile-data-after-login');
-            }
-        }
 
         $data = [];
 
