@@ -30,6 +30,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if(auth()->user()->roles->first()->name == 'espositore') {
+            $user = User::findOrFail(auth()->user()->id);
+            if(is_null($user->exhibitor->detail)) {
+                return redirect()->route('compile-data-after-login');
+            }
+        }
+
         $data = [];
 
         $total_payments = DB::table('payments')
