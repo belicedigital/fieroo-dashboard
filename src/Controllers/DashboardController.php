@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
 use Fieroo\Events\Models\Event;
+use Fieroo\Bootstraper\Models\User;
 use Carbon\Carbon;
 use Auth;
 use DB;
@@ -32,43 +33,58 @@ class DashboardController extends Controller
 
         $data = [];
 
-        $total_payments = DB::table('payments')
-            ->leftJoin('events','payments.event_id','=','events.id')
-            ->where([
-                ['events.is_published','=',1],
-                [DB::raw('DATE_FORMAT(events.start,"%Y")'), '=', Carbon::now()->format('Y')]
-            ])
-            ->select(DB::raw('sum(payments.amount) as amount'))
-            ->first();
-        $data['total_payments'] = is_object($total_payments) ? $total_payments : 0;
+        if(Auth::user()->roles->first()->name == 'espositore') {
 
-        $n_exhibitors = DB::table('exhibitors')->count();
-        $n_completed_exhibitors = DB::table('exhibitors_data')
-            ->leftJoin('exhibitors', 'exhibitors_data.exhibitor_id', '=', 'exhibitors.id')
-            ->count();
-        $data['percentage_exhibitors_completed'] = $n_exhibitors !== 0 ? round(($n_completed_exhibitors/$n_exhibitors)*100) : 0;
-        $data['tot_users_incompleted'] = $n_exhibitors-$n_completed_exhibitors;
-
-        $stand_more_purchased = DB::table('payments')
-            ->leftJoin('events','payments.event_id','=','events.id')
-            ->leftJoin('stands_types_translations','payments.stand_type_id','=','stands_types_translations.stand_type_id')
-            ->where([
-                ['events.is_published','=',1],
-                ['stands_types_translations.locale','=',App::getLocale()],
-                [DB::raw('DATE_FORMAT(events.start,"%Y")'), '=', Carbon::now()->format('Y')]
-            ])
-            ->select('stands_types_translations.name as name', 'payments.stand_type_id as stand', DB::raw('count(payments.id) as times'))
-            ->orderBy('times', 'DESC')
-            ->groupBy('stand', 'name')
-            ->first();
-        $data['stand_more_purchased'] = is_object($stand_more_purchased) ? $stand_more_purchased : null;
-
-        if(auth()->user()->roles->first()->name == 'espositore') {
+            $user = User::findOrFail(Auth::user()->id);
+            if(is_null($user->exhibitor->detail)) {
+                return redirect()->route('compile-data-after-login');
+            }
+            
             $data['events'] = Event::where([
                 ['is_published', '=', 1],
                 ['subscription_date_open_until', '>=', Carbon::now()->format('Y-m-d')]
             ])->get();
+
+        } else {
+
+            $total_payments = DB::table('payments')
+                ->leftJoin('events','payments.event_id','=','events.id')
+                ->where([
+                    ['events.is_published','=',1],
+                    [DB::raw('DATE_FORMAT(events.start,"%Y")'), '=', Carbon::now()->format('Y')]
+                ])
+                ->select(DB::raw('sum(payments.amount) as amount'))
+                ->first();
+            $data['total_payments'] = is_object($total_payments) ? $total_payments : 0;
+
+            $n_exhibitors = DB::table('exhibitors')->count();
+            $n_completed_exhibitors = DB::table('exhibitors_data')
+                ->leftJoin('exhibitors', 'exhibitors_data.exhibitor_id', '=', 'exhibitors.id')
+                ->count();
+            $data['percentage_exhibitors_completed'] = $n_exhibitors !== 0 ? round(($n_completed_exhibitors/$n_exhibitors)*100) : 0;
+            $data['tot_users_incompleted'] = $n_exhibitors-$n_completed_exhibitors;
+
+            $stand_more_purchased = DB::table('payments')
+                ->leftJoin('events','payments.event_id','=','events.id')
+                ->leftJoin('stands_types_translations','payments.stand_type_id','=','stands_types_translations.stand_type_id')
+                ->where([
+                    ['events.is_published','=',1],
+                    ['stands_types_translations.locale','=',App::getLocale()],
+                    [DB::raw('DATE_FORMAT(events.start,"%Y")'), '=', Carbon::now()->format('Y')]
+                ])
+                ->select('stands_types_translations.name as name', 'payments.stand_type_id as stand', DB::raw('count(payments.id) as times'))
+                ->orderBy('times', 'DESC')
+                ->groupBy('stand', 'name')
+                ->first();
+            $data['stand_more_purchased'] = is_object($stand_more_purchased) ? $stand_more_purchased : null;
+
         }
+        // if(auth()->user()->roles->first()->name == 'espositore') {
+        //     $data['events'] = Event::where([
+        //         ['is_published', '=', 1],
+        //         ['subscription_date_open_until', '>=', Carbon::now()->format('Y-m-d')]
+        //     ])->get();
+        // }
 
         return view('dashboard::dashboard', $data);
     }
