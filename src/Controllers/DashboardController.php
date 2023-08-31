@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
 use Fieroo\Events\Models\Event;
-use Fieroo\Bootstraper\Models\User;
+use Fieroo\Bootstrapper\Models\User;
 use Carbon\Carbon;
 use Auth;
 use DB;
@@ -39,7 +39,7 @@ class DashboardController extends Controller
             if(is_null($user->exhibitor->detail)) {
                 return redirect()->route('compile-data-after-login');
             }
-            
+
             $data['events'] = Event::where([
                 ['is_published', '=', 1],
                 ['subscription_date_open_until', '>=', Carbon::now()->format('Y-m-d')]
