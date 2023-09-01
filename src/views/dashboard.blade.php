@@ -119,7 +119,7 @@
                                         @elseif(userEventIsNotFurnished(auth()->user()->id, $l->id, auth()->user()->exhibitor->id))
                                         <a class="btn btn-primary" href="{{url('admin/events/'.$l->id.'/furnishes')}}"><i class="fas fa-shapes"></i> {{trans('generals.furnishes')}}</a>
                                         @else
-                                        <a class="btn btn-primary" href="{{url('admin/events/'.$l->id.'/recap-furnishings')}}"><i class="far fa-list-alt"></i> {{trans('generals.recap')}}</a>
+                                        <a class="btn btn-primary" href="{{url('admin/events/'.$l->id.'/exhibitor/'.auth()->user()->exhibitor->id.'/recap-furnishings')}}"><i class="far fa-list-alt"></i> {{trans('generals.recap')}}</a>
                                         @endif
                                     </div>
                                 </td>
