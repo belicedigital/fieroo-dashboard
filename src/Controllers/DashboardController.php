@@ -40,6 +40,10 @@ class DashboardController extends Controller
                 return redirect()->route('compile-data-after-login');
             }
 
+            if(!$user->exhibitor->detail->is_admitted) {
+                return redirect()->route('pending-admission');
+            }
+
             $data['events'] = Event::where([
                 ['is_published', '=', 1],
                 ['subscription_date_open_until', '>=', Carbon::now()->format('Y-m-d')]
