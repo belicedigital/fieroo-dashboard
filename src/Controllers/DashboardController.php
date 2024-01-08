@@ -32,7 +32,7 @@ class DashboardController extends Controller
     {
 
         $data = [];
-
+        dd(Auth::user()->roles->first());
         if(Auth::user()->roles->first()->name == 'espositore') {
 
             $user = User::findOrFail(Auth::user()->id);
