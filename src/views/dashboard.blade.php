@@ -291,29 +291,6 @@
 
 @section('title', trans('entities.dashboard'))
 
-@section('vendor-style')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css') }}" />
-@endsection
-
-@section('page-style')
-    <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/cards-advance.css') }}">
-@endsection
-
-@section('vendor-script')
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.js') }}"></script>
-@endsection
-
-@section('page-script')
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
-@endsection
-
 @section('content')
 
     <div class="row">
@@ -453,7 +430,8 @@
                                             <td>{{ \Carbon\Carbon::parse($l->end)->format('d/m/Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($l->subscription_date_open_until)->format('d/m/Y') }}
                                                 (-{{ \Carbon\Carbon::createFromFormat('Y-m-d', $l->subscription_date_open_until)->diffInDays(\Carbon\Carbon::now()->format('Y-m-d')) }}
-                                                {{ trans('generals.days') }})</td>
+                                                {{ trans('generals.days') }})
+                                            </td>
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     @if (userEventIsNotSubscribed(auth()->user()->id, $l->id))
@@ -484,10 +462,30 @@
             </div>
         @endif
     </div>
+@endsection
 
+@section('vendor-style')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css') }}" />
+@endsection
+
+@section('page-style')
+    <!-- Page -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/cards-advance.css') }}">
+@endsection
+
+@section('vendor-script')
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.js') }}"></script>
 @endsection
 
 @section('page-script')
+    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
     <script>
         const initEventsPayments = () => {
             common_request.post('stats/events-payments')
