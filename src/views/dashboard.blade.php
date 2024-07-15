@@ -401,12 +401,12 @@
             <!-- Available Events -->
             <div class="row">
                 <div class="col-12">
-                    @if ($errors->any())
+                    {{-- @if ($errors->any())
                         @include('admin.partials.errors', ['errors' => $errors])
                     @endif
                     @if (Session::has('success'))
                         @include('admin.partials.success')
-                    @endif
+                    @endif --}}
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">{{ __('generals.available_events') }}</h5>
