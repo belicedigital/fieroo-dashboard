@@ -488,7 +488,7 @@
 @endsection
 
 @section('page-script')
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script> --}}
     <script>
         const initEventsPayments = () => {
             common_request.post('stats/events-payments')
