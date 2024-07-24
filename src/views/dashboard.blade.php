@@ -485,7 +485,7 @@
         const initEventsPayments = () => {
             common_request.post('stats/events-payments')
                 .then(response => {
-                    let data = response.data
+                    const data = response.data
                     if (data.status) {
                         let dataset = []
                         let labels = []
@@ -493,7 +493,7 @@
                             labels.push(value.event)
                             dataset.push(value.amount)
                         })
-                        var options = {
+                        const options = {
                             series: [{
                                 name: "{{ trans('dashboard.receipts_amount') }}",
                                 data: dataset
@@ -515,7 +515,7 @@
                             }
                         };
 
-                        var chart = new ApexCharts(document.querySelector("#eventsPayments"), options);
+                        let chart = new ApexCharts(document.querySelector("#eventsPayments"), options);
                         chart.render();
                     } else {
                         toastr.error(data.message)
@@ -530,7 +530,7 @@
         const initEventsYearConfirmedChart = () => {
             common_request.post('stats/events-per-year')
                 .then(response => {
-                    let data = response.data
+                    const data = response.data
                     if (data.status) {
                         let dataset = []
                         let labels = moment.monthsShort()
@@ -547,7 +547,7 @@
                             eventsForChart.push(to_push)
                         })
 
-                        var options = {
+                        const options = {
                             series: [{
                                 name: "{{ trans('dashboard.n_events') }}",
                                 data: eventsForChart
@@ -566,7 +566,7 @@
                             }
                         };
 
-                        var chart = new ApexCharts(document.querySelector("#eventsYearConfirmedChart"), options);
+                        let chart = new ApexCharts(document.querySelector("#eventsYearConfirmedChart"), options);
                         chart.render();
                     } else {
                         toastr.error(data.message)
@@ -581,7 +581,7 @@
         const initEventsParticipantsChart = () => {
             common_request.post('stats/events-participants')
                 .then(response => {
-                    let data = response.data
+                    const data = response.data
                     if (data.status) {
                         let dataset = []
                         let labels = []
@@ -589,9 +589,7 @@
                             labels.push(value.event)
                             dataset.push(value.participants)
                         })
-                        console.log(labels)
-                        console.log(dataset)
-                        var options = {
+                        const options = {
                             series: dataset,
                             chart: {
                                 height: 350,
@@ -600,7 +598,7 @@
                             labels: labels
                         };
 
-                        var chart = new ApexCharts(document.querySelector("#eventsParticipantsChart"), options);
+                        let chart = new ApexCharts(document.querySelector("#eventsParticipantsChart"), options);
                         chart.render();
                     } else {
                         toastr.error(data.message)
