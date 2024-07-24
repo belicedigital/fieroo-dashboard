@@ -473,11 +473,6 @@
         href="{{ asset('assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css') }}" />
 @endsection
 
-@section('page-style')
-    <!-- Page -->
-    {{-- <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/cards-advance.css') }}"> --}}
-@endsection
-
 @section('vendor-script')
     <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
@@ -594,7 +589,8 @@
                             labels.push(value.event)
                             dataset.push(value.participants)
                         })
-
+                        console.log(labels)
+                        console.log(dataset)
                         var options = {
                             series: dataset,
                             chart: {
