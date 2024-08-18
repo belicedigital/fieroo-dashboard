@@ -300,7 +300,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-start">
-                            <div class="avatar flex-shrink-0 me-3">
+                            <div class="flex-shrink-0 me-3">
                                 <i class="ti ti-wallet text-info ti-xl"></i>
                             </div>
                             <div>
@@ -317,7 +317,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-start">
-                                <div class="avatar flex-shrink-0 me-3">
+                                <div class="flex-shrink-0 me-3">
                                     <i class="ti ti-rocket text-success ti-xl"></i>
                                 </div>
                                 <div>
@@ -334,7 +334,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-start">
-                            <div class="avatar flex-shrink-0 me-3">
+                            <div class="flex-shrink-0 me-3">
                                 <i class="ti ti-chart-bar text-warning ti-xl"></i>
                             </div>
                             <div>
@@ -351,7 +351,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-start">
-                            <div class="avatar flex-shrink-0 me-3">
+                            <div class="flex-shrink-0 me-3">
                                 <i class="ti ti-user-off text-danger ti-xl"></i>
                             </div>
                             <div>
